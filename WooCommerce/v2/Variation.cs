@@ -247,12 +247,6 @@ namespace WooCommerceNET.WooCommerce.v2
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
         public List<VariationMeta> meta_data { get; set; }
-
-        /// <summary>
-        /// Container for error information, if any
-        /// </summary>
-        [DataMember(EmitDefaultValue = false)]
-        public VariationError error { get; set; }
     }
     
     [DataContract]

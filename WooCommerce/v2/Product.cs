@@ -441,12 +441,6 @@ namespace WooCommerceNET.WooCommerce.v2
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
         public List<ProductMeta> meta_data { get; set; }
-
-        /// <summary>
-        /// Container for error information, if any
-        /// </summary>
-        [DataMember(EmitDefaultValue = false)]
-        public ProductError error { get; set; }
     }
     
     [DataContract]
@@ -736,16 +730,5 @@ namespace WooCommerceNET.WooCommerce.v2
         [DataMember(EmitDefaultValue = false)]
         public bool? verified { get; set; }
 
-    }
-
-    [DataContract]
-    public class ProductError : JsonObject
-    {
-        [DataMember( EmitDefaultValue = false )]
-        public string code { get; set; }
-        [DataMember( EmitDefaultValue = false )]
-        public string message { get; set; }
-        [DataMember( EmitDefaultValue = false )]
-        public object data { get; set; }
     }
 }

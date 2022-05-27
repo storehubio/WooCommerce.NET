@@ -78,16 +78,45 @@ namespace WooCommerceNET.Base
             }
         }
 
+        [DataMember(EmitDefaultValue = false)]
+        public virtual Error error { get; set; }
 
-        //[OnDeserializing]
-        //void tset(StreamingContext ctx)
-        //{
-        //    if (GetType().Name.Contains("ProductMeta"))
-        //        foreach (PropertyInfo pi in GetType().GetRuntimeProperties())
-        //        {
+        public bool IsSuccess(long? remoteId)
+        {
+            return remoteId.HasValue
+                && remoteId.Value > 0
+                && (error == null || string.IsNullOrEmpty(error?.message));
+        }
 
-        //        }
-        //}
+        public bool IsSuccess(ulong? remoteId)
+        {
+            return remoteId.HasValue
+                && remoteId.Value > 0
+                && (error == null || string.IsNullOrEmpty(error?.message));
+        }
+    }
+
+    [DataContract]
+    public class Error
+    {
+        private string _message;
+
+        [DataMember(EmitDefaultValue = false)]
+        public string code { get; set; }
+        [DataMember(EmitDefaultValue = false)]
+        public string message
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_message))
+                    return "Unknown error";
+                else if (_message.ToLower().StartsWith("invalid resource"))
+                    return "Item not found by ID on Woocommerce";
+                else
+                    return _message;
+            }
+            set => _message = value;
+        }
     }
 
     //public class MyCustomerResolver : DataContractResolver
@@ -136,7 +165,7 @@ namespace WooCommerceNET.Base
         public WCItem(RestAPI api)
         {
             API = api;
-            if(typeof(T).BaseType.GetRuntimeProperty("Endpoint") == null)
+            if (typeof(T).BaseType.GetRuntimeProperty("Endpoint") == null)
                 APIEndpoint = typeof(T).GetRuntimeProperty("Endpoint").GetValue(null).ToString();
             else
                 APIEndpoint = typeof(T).BaseType.GetRuntimeProperty("Endpoint").GetValue(null).ToString();
@@ -223,7 +252,7 @@ namespace WooCommerceNET.Base
                     else
                         batchResult = API.DeserializeJSon<BatchObject<T>>(json);
                 }
-                
+
                 return batchResult;
             }
         }
@@ -318,28 +347,28 @@ namespace WooCommerceNET.Base
 
         public virtual async Task<BatchObject<T>> UpdateRange(int parentId, BatchObject<T> items, Dictionary<string, string> parms = null)
         {
-            string json = await UpdateRangeRaw( parentId, items, parms );
+            string json = await UpdateRangeRaw(parentId, items, parms);
 
-            if ( items.delete == null || items.delete.Count == 0 )
-                return API.DeserializeJSon<BatchObject<T>>( json );
+            if (items.delete == null || items.delete.Count == 0)
+                return API.DeserializeJSon<BatchObject<T>>(json);
             else
             {
                 BatchObject<T> batchResult = new BatchObject<T>();
 
-                if ( ( items.create == null || items.create.Count == 0 ) && ( items.update == null || items.update.Count == 0 ) )
+                if ((items.create == null || items.create.Count == 0) && (items.update == null || items.update.Count == 0))
                 {
-                    batchResult.DeletedItems = API.DeserializeJSon<List<T>>( json.Substring( json.IndexOf( "[" ) ).TrimEnd( '}' ) );
+                    batchResult.DeletedItems = API.DeserializeJSon<List<T>>(json.Substring(json.IndexOf("[")).TrimEnd('}'));
                 }
                 else
                 {
-                    var pos = json.LastIndexOf( "\"delete\":[" );
-                    if ( pos != -1 )
+                    var pos = json.LastIndexOf("\"delete\":[");
+                    if (pos != -1)
                     {
-                        batchResult = API.DeserializeJSon<BatchObject<T>>( json.Substring( 0, pos - 1 ) + "}" );
-                        batchResult.DeletedItems = API.DeserializeJSon<List<T>>( json.Substring( pos + 9 ).TrimEnd( '}' ) );
+                        batchResult = API.DeserializeJSon<BatchObject<T>>(json.Substring(0, pos - 1) + "}");
+                        batchResult.DeletedItems = API.DeserializeJSon<List<T>>(json.Substring(pos + 9).TrimEnd('}'));
                     }
                     else
-                        batchResult = API.DeserializeJSon<BatchObject<T>>( json );
+                        batchResult = API.DeserializeJSon<BatchObject<T>>(json);
                 }
 
                 return batchResult;
@@ -366,3 +395,4 @@ namespace WooCommerceNET.Base
         }
     }
 }
+
