@@ -151,7 +151,7 @@ namespace WooCommerceNET.Base
         public List<T> update { get; set; }
 
         [DataMember(EmitDefaultValue = false)]
-        public List<int> delete { get; set; }
+        public List<long> delete { get; set; }
 
         [IgnoreDataMember]
         public List<T> DeletedItems { get; set; }
