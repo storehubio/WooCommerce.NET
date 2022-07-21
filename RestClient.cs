@@ -26,8 +26,6 @@ namespace WooCommerceNET
         public override async Task<string> SendHttpClientRequest<T>(string endpoint, RequestMethod method, T requestBody, Dictionary<string, string> parms = null)
         {
 
-            var requestTimeout = 200000; //200 seconds  (from default 100s)
-
             HttpRequestMessage request = new HttpRequestMessage();
 
             if (Version == APIVersion.WordPressAPI)
