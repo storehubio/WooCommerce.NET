@@ -13,7 +13,7 @@ namespace WooCommerceNET
     public class RestClient : RestAPI
     {
         // HttpClient is intended to be instantiated once per application, rather than per-use.
-        private static readonly HttpClient HttpClient = new HttpClient();
+        private static readonly HttpClient HttpClient = new HttpClient() { Timeout = TimeSpan.FromSeconds(200) };
 
         public RestClient(string url, string key, string secret, bool authorizedHeader = true,
                           Func<string, string> jsonSerializeFilter = null,
@@ -25,8 +25,10 @@ namespace WooCommerceNET
 
         public override async Task<string> SendHttpClientRequest<T>(string endpoint, RequestMethod method, T requestBody, Dictionary<string, string> parms = null)
         {
-            HttpRequestMessage request = new HttpRequestMessage();
 
+            var requestTimeout = 200000; //200 seconds  (from default 100s)
+
+            HttpRequestMessage request = new HttpRequestMessage();
 
             if (Version == APIVersion.WordPressAPI)
             {

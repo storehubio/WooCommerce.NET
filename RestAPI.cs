@@ -151,6 +151,8 @@ namespace WooCommerceNET
         /// <returns>json string</returns>
         public virtual async Task<string> SendHttpClientRequest<T>(string endpoint, RequestMethod method, T requestBody, Dictionary<string, string> parms = null)
         {
+            var requestTimeout = 200000; //200 seconds  (from default 100s)
+
             HttpWebRequest httpWebRequest = null;
             try
             {
@@ -168,6 +170,7 @@ namespace WooCommerceNET
                                                                                         .Replace("wc/v3", "jwt-auth/v1/token"));
                     request.Method = "POST";
                     request.ContentType = "application/x-www-form-urlencoded";
+                    request.Timeout = requestTimeout;
 
                     if (JWTRequestFilter != null)
                         JWTRequestFilter.Invoke(request);
@@ -220,6 +223,7 @@ namespace WooCommerceNET
                 // start the stream immediately
                 httpWebRequest.Method = method.ToString();
                 httpWebRequest.AllowReadStreamBuffering = false;
+                httpWebRequest.Timeout = requestTimeout;
 
                 if (webRequestFilter != null)
                     webRequestFilter.Invoke(httpWebRequest);
