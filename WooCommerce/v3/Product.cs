@@ -360,19 +360,19 @@ namespace WooCommerceNET.WooCommerce.v3
         /// read-only
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> related_ids { get; set; }
+        public List<ulong> related_ids { get; set; }
 
         /// <summary>
         /// List of up-sell products IDs.
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> upsell_ids { get; set; }
+        public List<ulong> upsell_ids { get; set; }
 
         /// <summary>
         /// List of cross-sell products IDs.
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> cross_sell_ids { get; set; }
+        public List<ulong> cross_sell_ids { get; set; }
 
         /// <summary>
         /// Product parent ID.
@@ -428,7 +428,7 @@ namespace WooCommerceNET.WooCommerce.v3
         /// read-only
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> grouped_products { get; set; }
+        public List<ulong> grouped_products { get; set; }
 
         /// <summary>
         /// Menu order, used to custom sort products.
