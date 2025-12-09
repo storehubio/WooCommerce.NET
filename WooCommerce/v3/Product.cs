@@ -441,6 +441,12 @@ namespace WooCommerceNET.WooCommerce.v3
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
         public List<v2.ProductMeta> meta_data { get; set; }
+
+        /// <summary>
+        /// Product GTIN, UPC, EAN or ISBN
+        /// </summary>
+        [DataMember(EmitDefaultValue = false)]
+        public string global_unique_id { get; set; }
     }
 
     [DataContract]
