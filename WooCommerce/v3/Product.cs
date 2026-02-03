@@ -252,9 +252,12 @@ namespace WooCommerceNET.WooCommerce.v3
 
         /// <summary>
         /// Stock management at product level. Default is false.
+        /// When Manage stock is checked, string value "parent" will be given, otherwise, it will be bool value false.
+        /// The "parent" should appear in Variation object, however, when getting Products with variation SKU as parameter, 
+        /// variation object with "parent" value returned in product endpoints. That's why we have to set manage_stock type as object in Product object as well.
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public bool? manage_stock { get; set; }
+        public object manage_stock { get; set; }
 
         [DataMember(EmitDefaultValue = false, Name = "stock_quantity")]
         protected object stock_quantityValue { get; set; }
@@ -421,7 +424,7 @@ namespace WooCommerceNET.WooCommerce.v3
         /// read-only
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> variations { get; set; }
+        public List<ulong> variations { get; set; }
 
         /// <summary>
         /// List of grouped products ID. 
@@ -444,6 +447,12 @@ namespace WooCommerceNET.WooCommerce.v3
 
         /// <summary>
         /// Product GTIN, UPC, EAN or ISBN
+        /// </summary>
+        [DataMember(EmitDefaultValue = false)]
+        public ProductError error { get; set; }
+        
+        /// <summary>
+        /// Product GTIN, UPC, EAN o ISBN
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
         public string global_unique_id { get; set; }

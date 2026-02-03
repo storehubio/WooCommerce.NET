@@ -252,9 +252,12 @@ namespace WooCommerceNET.WooCommerce.v2
 
         /// <summary>
         /// Stock management at product level. Default is false.
+        /// When Manage stock is checked, string value "parent" will be given, otherwise, it will be bool value false.
+        /// The "parent" should appear in Variation object, however, when getting Products with variation SKU as parameter, 
+        /// variation object with "parent" value returned in product endpoints. That's why we have to set manage_stock type as object in Product object as well.
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public bool? manage_stock { get; set; }
+        public object manage_stock { get; set; }
 
         [DataMember(EmitDefaultValue = false, Name = "stock_quantity")]
         protected object stock_quantityValue { get; set; }
@@ -360,19 +363,19 @@ namespace WooCommerceNET.WooCommerce.v2
         /// read-only
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> related_ids { get; set; }
+        public List<ulong> related_ids { get; set; }
 
         /// <summary>
         /// List of up-sell products IDs.
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> upsell_ids { get; set; }
+        public List<ulong> upsell_ids { get; set; }
 
         /// <summary>
         /// List of cross-sell products IDs.
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
-        public List<int> cross_sell_ids { get; set; }
+        public List<ulong> cross_sell_ids { get; set; }
 
         /// <summary>
         /// Product parent ID.
