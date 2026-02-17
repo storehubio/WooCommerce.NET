@@ -80,46 +80,16 @@ namespace WooCommerceNET.Base
             }
         }
 
-        [DataMember(EmitDefaultValue = false)]
-        public virtual Error error { get; set; }
+        //[OnDeserializing]
+        //void tset(StreamingContext ctx)
+        //{
+        //    if (GetType().Name.Contains("ProductMeta"))
+        //        foreach (PropertyInfo pi in GetType().GetRuntimeProperties())
+        //        {
 
-        public bool IsSuccess(long? remoteId)
-        {
-            return remoteId.HasValue
-                && remoteId.Value > 0
-                && (error == null || string.IsNullOrEmpty(error?.message));
-        }
-
-        public bool IsSuccess(ulong? remoteId)
-        {
-            return remoteId.HasValue
-                && remoteId.Value > 0
-                && (error == null || string.IsNullOrEmpty(error?.message));
-        }
-    }
-
-    [DataContract]
-    public class Error
-    {
-        private string _message;
-
-        [DataMember(EmitDefaultValue = false)]
-        public string code { get; set; }
-        [DataMember(EmitDefaultValue = false)]
-        public string message
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_message))
-                    return "Unknown error";
-                else if (_message.ToLower().StartsWith("invalid resource"))
-                    return "Item not found by ID on Woocommerce";
-                else
-                    return _message;
-            }
-            set => _message = value;
-        }
-    }
+        //        }
+        //}
+}
 
     //public class MyCustomerResolver : DataContractResolver
     //{

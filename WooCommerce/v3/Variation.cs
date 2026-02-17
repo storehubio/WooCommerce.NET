@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using WooCommerceNET.Base;
+using WooCommerceNET.WooCommerce.v2;
 
 namespace WooCommerceNET.WooCommerce.v3
 {
@@ -267,6 +268,12 @@ namespace WooCommerceNET.WooCommerce.v3
         /// </summary>
         [DataMember(EmitDefaultValue = false)]
         public List<v2.VariationMeta> meta_data { get; set; }
+
+        /// <summary>
+        /// Container for error information, if any
+        /// </summary>
+        [DataMember(EmitDefaultValue = false)]
+        public VariationError error { get; set; }
     }
 
     [DataContract]
@@ -333,4 +340,7 @@ namespace WooCommerceNET.WooCommerce.v3
 
     [DataContract]
     public class VariationAttribute : v2.VariationAttribute { }
+
+    [DataContract]
+    public class VariationError : v2.VariationError { }
 }

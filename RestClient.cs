@@ -25,7 +25,6 @@ namespace WooCommerceNET
 
         public override async Task<string> SendHttpClientRequest<T>(string endpoint, RequestMethod method, T requestBody, Dictionary<string, string> parms = null)
         {
-
             HttpRequestMessage request = new HttpRequestMessage();
 
             if (Version == APIVersion.WordPressAPI)
