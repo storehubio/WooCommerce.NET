@@ -270,10 +270,10 @@ namespace WooCommerceNET.WooCommerce.v3
         public List<v2.VariationMeta> meta_data { get; set; }
 
         /// <summary>
-        /// Container for error information, if any
+        /// Container for error information, if any: MOVED TO BASEOBJECT
         /// </summary>
-        [DataMember(EmitDefaultValue = false)]
-        public VariationError error { get; set; }
+        //[DataMember(EmitDefaultValue = false)]
+        //public VariationError error { get; set; }
     }
 
     [DataContract]

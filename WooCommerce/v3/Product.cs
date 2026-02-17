@@ -446,11 +446,11 @@ namespace WooCommerceNET.WooCommerce.v3
         public List<v2.ProductMeta> meta_data { get; set; }
 
         /// <summary>
-        /// Container for error information, if any
+        /// Container for error information, if any: MOVED TO BASEOBJECT
         /// </summary>
-        [DataMember(EmitDefaultValue = false)]
-        public ProductError error { get; set; }
-        
+        //[DataMember(EmitDefaultValue = false)]
+        //public Error error { get; set; }
+
         /// <summary>
         /// Product GTIN, UPC, EAN o ISBN
         /// </summary>

@@ -446,10 +446,10 @@ namespace WooCommerceNET.WooCommerce.v2
         public List<ProductMeta> meta_data { get; set; }
 
         /// <summary>
-        /// Container for error information, if any
+        /// Container for error information, if any: MOVED TO BASEOBJECT
         /// </summary>
-        [DataMember(EmitDefaultValue = false)]
-        public ProductError error { get; set; }
+        //[DataMember(EmitDefaultValue = false)]
+        //public ProductError error { get; set; }
     }
     
     [DataContract]
